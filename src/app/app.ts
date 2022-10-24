@@ -1,31 +1,24 @@
-import {
-    Component,
-    OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ItemT } from './types';
 import { MainService } from './services/main.service';
 
 @Component({
     selector: 'app-root',
     template: `
-        <app-header
-            #header
-            [length]="items.length"
-        >
-        <app-filtration (filterItems)="filterItems($event)"></app-filtration>
+        <app-header #header [length]="(items$ | async)?.length">
+            <app-filtration></app-filtration>
         </app-header>
+        <div>{{items$ | async | json}}</div>
     `,
 })
 export class AppComponent implements OnInit {
-    items: ItemT[] = [];
+    items$!: Observable<ItemT[]>;
     constructor(private mainService: MainService) {}
 
-    filterItems(filter: string) {
-        this.items = this.mainService.filterItems(filter);
-    }
-
-    async ngOnInit() {
-        this.items = await this.mainService.getItems();
+    ngOnInit() {
+        this.items$ = this.mainService.getItems();
+        this.mainService.init();
     }
 }
 

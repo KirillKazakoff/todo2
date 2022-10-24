@@ -23,6 +23,6 @@ export class FiltrationComponent {
     @Output() filterItems = new EventEmitter<string>();
 
     clear() {
-        this.mainService.items = [];
+        this.mainService.clear();
     }
 }
