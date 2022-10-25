@@ -6,10 +6,8 @@ import { MainService } from './services/main.service';
 @Component({
     selector: 'app-root',
     template: `
-        <app-header #header [length]="(items$ | async)?.length">
-            <app-filtration></app-filtration>
-        </app-header>
-        <div>{{items$ | async | json}}</div>
+        <app-header [length]="(items$ | async)?.length"></app-header>
+        <div>{{ items$ | async | json }}</div>
     `,
 })
 export class AppComponent implements OnInit {

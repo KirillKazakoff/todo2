@@ -1,6 +1,4 @@
-import {
-    Component, EventEmitter, Output,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { MainService } from '../services/main.service';
 
 @Component({
@@ -10,7 +8,7 @@ import { MainService } from '../services/main.service';
         <input
             class="input filter-input"
             [(ngModel)]="filter"
-            (input)="filterItems.emit(filter)"
+            (input)="filterItems()"
         />
         <button (click)="clear()"></button>
     `,
@@ -20,8 +18,9 @@ export class FiltrationComponent {
 
     filter: 'all' | 'active' | 'done' = 'all';
 
-    @Output() filterItems = new EventEmitter<string>();
-
+    filterItems() {
+        this.mainService.filter(this.filter);
+    }
     clear() {
         this.mainService.clear();
     }
