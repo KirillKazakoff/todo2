@@ -39,5 +39,6 @@ export class ItemComponent {
         if (!value) return;
         this.toggleEdit();
         this.item.description = value;
+        console.log(value);
     }
 }
